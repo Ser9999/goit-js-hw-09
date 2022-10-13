@@ -1,6 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-import Notiflix from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const startBtn = document.querySelector('[data-start]');
 const dataInput = document.querySelector('#datetime-picker');
@@ -9,7 +9,9 @@ const dataHours = document.querySelector('[data-hours]');
 const dataMinutes = document.querySelector('[data-minutes]');
 const dataSeconds = document.querySelector('[data-seconds]');
 
-const addLeadingZero = value => String(value).padStart(2, 0);
+const addLeadingZero = value => {
+  return value <= 9 ? `${value}`.padStart(2, '00') : `${value}`.padStart(3);
+};
 
 const startCount = function () {
   const convertedDataInput = new Date(dataInput.value).getTime();
@@ -76,4 +78,4 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-} 
+}
